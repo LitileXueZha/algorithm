@@ -23,8 +23,8 @@
 
         //  改进 冒泡
         static bubbleImprove(arr) {
-          let flag = true;
           for (let i = 0;i < arr.length - 1;i ++) {
+            let flag = true;
             for (let j = 0;j < arr.length - i -1;j ++) {
               if (arr[j] > arr[j + 1]) {
                 const temp = arr[j];
@@ -38,16 +38,76 @@
               break;
             }
           }
-          
+
           console.log('排序 - 冒泡 - 改进：', arr);
+        }
+
+        //  选择
+        static choose(arr) {
+          for (let i = 0;i < arr.length - 1;i++) {
+            let minIndex = i;
+            for (let j = i + 1;j < arr.length;j++) {
+              if (arr[minIndex] > arr[j]) {
+                minIndex = j;
+              }
+            }
+
+            if (minIndex > i) {
+              const tmp = arr[minIndex];
+              arr[minIndex] = arr[i];
+              arr[i] = tmp;
+            }
+          }
+
+          console.log('排序 - 选择：', arr);
+        }
+
+        static insert(arr) {
+          for (let i = 1;i < arr.length - 1;i++) {
+            const willOrderValue = arr[i];
+            for (let j = 0; j < i;j++) {
+              if (j === 0 && willOrderValue <= arr[j]) {
+                arr.splice(i, 1);
+                arr.unshift(willOrderValue);
+                break;
+              } else if (j < (i + 1) && arr[j] > willOrderValue && arr[j + 1] <= willOrderValue) {
+                arr.splice(i, 1);
+                arr.splice(j, 0, willOrderValue);
+                break;
+              }
+            }
+          }
+
+          console.log('排序 - 插入：', arr);
+        }
+
+        static quick(arr) {
+          if (arr.length <= 1) {
+            return arr;
+          }
+
+          const radix = arr[0];
+          const left = [];
+          const right = [];
+          for (let i = 1;i < arr.length;i++) {
+            if (radix > arr[i]) left.push(arr[i]);
+            if (radix <= arr[i]) right.push(arr[i]);
+          }
+          return Sort.quick(left).concat(radix, Sort.quick(right));
         }
       }
 
       Sort.bubble(arr);
       Sort.bubbleImprove(arr);
+      Sort.choose(arr);
+      Sort.insert(arr);
+      console.log('排序 - 快速：', Sort.quick(arr));
     </script>
   </head>
   <body>
     <h1>请看控制台</h1>
+    <pre>
+       const arr = [324, 5, 32456, 46, 777, 35, 5, 1541, 436, 776, 53, 35];
+    </pre>
   </body>
 </html>
