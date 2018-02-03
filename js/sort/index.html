@@ -17,10 +17,10 @@
         let j = end + 1;
         while (true) {
           while (arr[++ i] < radix) {
-            if (i === start) break;
+            if (i === end) break;
           }
           while (arr[-- j] > radix) {
-            if (j === end) break;
+            if (j === start) break;
           }
 
           if (i >= j) break;
