@@ -6,10 +6,30 @@
     <script type="text/javascript">
       Array.prototype.swap = function (i, j) {
         const tmp = this[i];
-        this[j] = this[i];
-        this[i] = tmp;
+        this[i] = this[j];
+        this[j] = tmp;
       };
-      const arr = [324,5,32456,46,777,35,5,1541,436,776,53,35];
+
+      function partion(arr, start, end) {
+        const radix = arr[start];
+        console.log(start, radix, arr, end);
+        let i = start;
+        let j = end + 1;
+        while (true) {
+          while (arr[++ i] < radix) {
+            if (i === start) break;
+          }
+          while (arr[-- j] > radix) {
+            if (j === end) break;
+          }
+
+          if (i >= j) break;
+          arr.swap(i, j);
+        }
+        arr.swap(start, j);
+        return j;
+      }
+
       class Sort {
         //  冒泡
         static bubble(arr) {
@@ -68,22 +88,33 @@
         }
 
         static insert(arr) {
-          for (let i = 1;i < arr.length - 1;i++) {
+          for (let i = 1;i < arr.length;i++) {
             const willOrderValue = arr[i];
             for (let j = 0; j < i;j++) {
               if (j === 0 && willOrderValue <= arr[j]) {
                 arr.splice(i, 1);
                 arr.unshift(willOrderValue);
                 break;
-              } else if (j < (i + 1) && arr[j] > willOrderValue && arr[j + 1] <= willOrderValue) {
+              } else if (j < (i - 1) && arr[j] < willOrderValue && arr[j + 1] >= willOrderValue) {
                 arr.splice(i, 1);
-                arr.splice(j, 0, willOrderValue);
+                arr.splice(j + 1, 0, willOrderValue);
                 break;
               }
             }
           }
 
           console.log('排序 - 插入：', arr);
+        }
+
+        static insertOrigin(arr) {
+          for (let i = 1;i < arr.length;i ++) {
+            for (let j = i;j > 0 && arr[j] < arr[j - 1];j --) {
+              // swap(arr, j - 1, j);
+              arr.swap(j - 1, j);
+            }
+          }
+
+          console.info('排序 - 插入 -原始', arr);
         }
 
         static quick(arr) {
@@ -101,9 +132,12 @@
           return Sort.quick(left).concat(radix, Sort.quick(right));
         }
 
-        static quickOrigin(arr) {
-          const radix = arr[0];
-          let firstOkIndex = 0;
+        static quickOrigin(arr, start = 0, end = arr.length - 1) {
+          if (start >= end) return;
+
+          const radix = partion(arr, start, end);
+          Sort.quickOrigin(arr, start, radix - 1);
+          Sort.quickOrigin(arr, radix + 1, end);
         }
 
         static quickImproveThree(arr) {
@@ -142,7 +176,11 @@
       Sort.bubbleImprove([324, 5, 32456, 46, 777, 35, 5, 1541, 436, 776, 53, 35]);
       Sort.choose([324, 5, 32456, 46, 777, 35, 5, 1541, 436, 776, 53, 35]);
       Sort.insert([324, 5, 32456, 46, 777, 35, 5, 1541, 436, 776, 53, 35]);
+      Sort.insertOrigin([324, 5, 32456, 46, 777, 35, 5, 1541, 436, 776, 53, 35]);
       console.log('排序 - 快速：', Sort.quick([324, 5, 32456, 46, 777, 35, 5, 1541, 436, 776, 53, 35]));
+      const quickOriginArr = [324, 5, 32456, 46, 777, 35, 5, 1541, 436, 776, 53, 35];
+      Sort.quickOrigin(quickOriginArr);
+      console.log('排序 - 快速 - 原始：', quickOriginArr);
       console.log('排序 - 快速 - 改进三向切分：', Sort.quickImproveThree([324, 5, 32456, 46, 777, 35, 5, 1541, 436, 776, 53, 35]));
     </script>
   </head>
