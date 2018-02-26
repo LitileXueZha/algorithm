@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>布局</title>
+  <style>
+    blockquote{
+      border-left: 4px solid #eee;
+      margin: 0;
+      padding: 6px 0 6px 15px;
+    }
+    p{
+      overflow: hidden;
+    }
+
+    .container-grail{
+      padding: 0 300px 10px 200px;
+      overflow: auto;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 10px;
+    }
+    .container-grail .middle, .container-grail .left, .container-grail .right{
+      float: left;
+      position: relative;
+      height: 100%;
+      /* word-break: break-all; */
+    }
+    .container-grail .left{
+      margin-left: -100%;
+      left: -200px;
+      width: 200px;
+    }
+    .container-grail .middle{
+      width: 100%;
+    }
+    .container-grail .right{
+      margin-left: -300px;
+      left: 300px;
+      width: 300px;
+    }
+
+    .container-bird{
+      border-bottom: 1px solid #eee;
+      margin-bottom: 10px;
+      overflow: auto;
+    }
+    .container-bird>div{
+      float: left;
+    }
+    .container-bird .m{
+      width: 100%;
+    }
+    .container-bird .m .m-inner{
+      margin: 0 300px 0 200px;
+    }
+    .container-bird .l{
+      margin-left: -100%;
+      width: 200px;
+    }
+    .container-bird .r{
+      margin-left: -300px;
+      width: 300px;
+    }
+  </style>
+</head>
+<body>
+  <fieldset disabled="disabled">
+    <legend>圣杯布局</legend>
+    <div class="container-grail">
+      <div class="middle">
+        <pre>M</pre>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint ullam ipsa eligendi adipisci rem ab omnis odit veniam alias, doloremque, reiciendis cumque non laborum esse optio, iusto voluptatem facilis dolores.
+      </div>
+      <div class="left">
+        <pre>L</pre>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem vitae alias dolorem libero porro illo dolore iusto? Deserunt maxime eum quasi, voluptatem dolores id iusto, itaque illo, dignissimos minima dolorem.
+      </div>
+      <div class="right">
+        <pre>R</pre>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium illum accusantium quis ducimus ratione minus. Deleniti reprehenderit facere quam autem quasi, ab consectetur odit! Amet illum provident dolore excepturi vero?
+      </div>
+    </div>
+    <strong>代码如下：</strong>
+    <pre style="font-family: Consolas;font-size: 14px;">
+    .container-grail{
+      padding: 0 300px 10px 200px;
+      overflow: auto;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 10px;
+    }
+    .container-grail .middle, .container-grail .left, .container-grail .right{
+      float: left;
+      position: relative;
+      height: 100%;
+      <span style="color: #ddd;">/* word-break: break-all; */</span>
+    }
+    .container-grail .left{
+      <b>margin-left: -100%;</b>
+      <b>left: -200px;</b>
+      width: 200px;
+    }
+    .container-grail .middle{
+      <b>width: 100%;</b>
+    }
+    .container-grail .right{
+      <b>margin-left: -300px;</b>
+      <b>left: 300px;</b>
+      width: 300px;
+    }
+    </pre>
+    <blockquote>
+      为什么中间那个要写第一个，因为要先渲染，才看起来有点怪<br>
+      三栏布局，中间自适应
+    </blockquote>
+  </fieldset>
+  <br>
+  <fieldset disabled="disabled">
+    <legend>双飞翼布局</legend>
+    <div class="container-bird">
+      <div class="m">
+        <div class="m-inner">
+          <pre>M</pre>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem obcaecati itaque totam quaerat exercitationem, beatae veniam iste, architecto voluptatum pariatur fugit eius sint, nemo nam quisquam ex doloribus inventore earum.</p>
+        </div>
+      </div>
+      <div class="l">
+        <pre>L</pre>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui blanditiis accusantium ad nemo expedita ullam maiores at tempore culpa quas hic aspernatur excepturi reprehenderit esse, saepe odit dolorum eos amet!</p>
+      </div>
+      <div class="r">
+        <pre>R</pre>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem ipsam impedit sapiente in. Beatae exercitationem voluptatum voluptates, officia enim vitae necessitatibus vero explicabo placeat velit dolorum maxime reprehenderit, adipisci rerum.</p>
+      </div>
+    </div>
+    <strong>代码如下：</strong>
+    <pre style="font-family: Consolas;font-size: 14px;">
+    .container-bird>div{
+      float: left;
+    }
+    .container-bird .m{
+      width: 100%;
+    }
+    .container-bird .m .m-inner{
+      margin: 0 300px 0 200px;
+    }
+    .container-bird .l{
+      margin-left: -100%;
+      width: 200px;
+    }
+    .container-bird .r{
+      margin-left: -300px;
+      width: 300px;
+    }
+    </pre>
+    <blockquote>
+      很显然，双飞翼布局比圣杯多写了1个div，少写了4个css属性。<br>
+      它们的思想区别是：敲完这段代码，你就知道了（双飞翼中间内容加了个div收缩起来，而圣杯需要左右定位让开）
+    </blockquote>
+  </fieldset>
+</body>
+</html>
